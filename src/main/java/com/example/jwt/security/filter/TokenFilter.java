@@ -44,6 +44,7 @@ public class TokenFilter extends GenericFilterBean {
             if (jwtUser != null) {
                 UserDetails userDetails = userDetailsService.loadUserByUsername(TokenUtil.getUsername(token));
                 Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails, token, userDetails.getAuthorities());
+                //Authentication authentication = TokenUtil.getAuthentication(token);
                 SecurityContextHolder.getContext().setAuthentication(authentication);
                 redisTemplate.expire(ConfConstant.TOKEN_PRE + token, 8, TimeUnit.HOURS);
             }
